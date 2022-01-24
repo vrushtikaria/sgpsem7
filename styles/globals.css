@@ -1,16 +1,10 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
+@tailwind base;
+@tailwind components;
 * {
-  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+@tailwind utilities;
+
+.link_line {
+  @apply after:bottom-0 after:left-0 after:right-0 after:m-auto after:bg-white after:text-transparent after:w-0 after:content-['.'] after:h-1 after:absolute  hover:after:w-2/3 hover:after:transition-all after:ease-in-out hover:after:duration-500;
 }
