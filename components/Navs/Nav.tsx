@@ -19,7 +19,7 @@ const Nav = () => {
 
   return (
     <>
-      <div className="bg-medi w-100 px-6 h-20  flex justify-between items-center overflow-hidden">
+      <div className="bg-medi px-6 h-20 flex justify-between items-center">
         <div className="w-3/4 space-x-4 inline-flex justify-start items-center">
           <img className="h-12" src="./images/logo.jpg" alt="" />
           <div className="sm:flex sm:w-full hidden ">
