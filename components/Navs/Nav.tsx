@@ -21,11 +21,7 @@ const Nav = () => {
     <>
       <div className="bg-medi w-100 px-6 h-20  flex justify-between items-center overflow-hidden">
         <div className="w-3/4 space-x-4 inline-flex justify-start items-center">
-          <img
-            className="h-12 w-auto aspect-auto"
-            src="./images/logo.jpg"
-            alt=""
-          />
+          <img className="h-12" src="./images/logo.jpg" alt="" />
           <div className="sm:flex sm:w-full hidden ">
             <input
               className="w-5/6 rounded-sm focus:outline focus:outline-2 focus:outline-offset-0 py-1 px-2 focus:outline-blue-500 placeholder:italic "
