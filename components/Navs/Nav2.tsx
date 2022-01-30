@@ -2,7 +2,7 @@ import Arrow from "@heroicons/react/outline/ArrowNarrowUpIcon";
 
 const Nav2 = ({ filter, cats }) => {
   async function getProds() {
-    const cat = event.target.id;
+    const cat = (event.target as Element).id;
     const response = await fetch("/api/prodbycat?cat=" + cat);
     const data = await response.json();
     console.log(data);
