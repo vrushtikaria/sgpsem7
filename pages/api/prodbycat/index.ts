@@ -11,5 +11,5 @@ export default async function handler(req, res) {
     prod.image = "/images/product_images/" + prod._id + "/" + prod.image;
     return prod;
   });
-  res.status(200).json(prods);
+  res.status(202).send(prods);
 }

@@ -5,7 +5,6 @@ const Nav2 = ({ filter, cats }) => {
     const cat = (event.target as Element).id;
     const response = await fetch("/api/prodbycat?cat=" + cat);
     const data = await response.json();
-    console.log(data);
     filter(data);
   }
 

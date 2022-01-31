@@ -11,7 +11,6 @@ import Product from "../models/productSchema";
 
 export default function Home({ prods, cats }) {
   const [products, setProds] = useState(prods);
-  console.log(typeof products);
 
   return (
     <>
@@ -78,12 +77,6 @@ export async function getServerSideProps() {
     cat._id = cat._id.toString();
     return cat;
   });
-
-  // const category = await Category.find({}).lean();
-  // const cats = category.map((doc) => {
-  //   doc._id = doc._id.toString();
-  //   return doc;
-  // });
 
   return { props: { prods: prods, cats: cats } };
 }
