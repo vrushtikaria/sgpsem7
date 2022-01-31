@@ -1,7 +1,7 @@
 import dbConnect from "../../../lib/dbConnect";
 import Product from "../../../models/productSchema";
 
-export default async (req, res) => {
+export default async function handler(req, res) {
   dbConnect();
   const cate = req.query.cat.toString();
   const result = await Product.find({ category: cate }).limit(10);
@@ -12,4 +12,4 @@ export default async (req, res) => {
     return prod;
   });
   res.status(200).json(prods);
-};
+}
