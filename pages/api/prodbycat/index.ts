@@ -2,7 +2,7 @@ import dbConnect from "../../../lib/dbConnect";
 import Product from "../../../models/productSchema";
 
 export default async function handler(req, res) {
-  dbConnect();
+  await dbConnect();
   const cate = req.query.cat.toString();
   const result = await Product.find({ category: cate }).limit(10);
   const prods = result.map((doc) => {
@@ -11,5 +11,5 @@ export default async function handler(req, res) {
     prod.image = "/images/product_images/" + prod._id + "/" + prod.image;
     return prod;
   });
-  res.status(202).send(prods);
+  res.status(202).json(prods);
 }

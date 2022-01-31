@@ -24,8 +24,8 @@ export default function Home({ prods, cats }) {
           <Nav2 filter={setProds} cats={cats} />
         </nav>
         <Carousel />
-        <div className="container mx-auto py-10 md:py-20  max-w-6xl min-w-[484px]">
-          <div className="p-5 md:p-0 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-4 items-start transition-all duration-500">
+        <div className="container mx-auto py-10 md:py-20  max-w-8xl min-w-[484px]">
+          <div className="p-5 md:p-0 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 items-start transition-all duration-500">
             {products.map((prod) => {
               return (
                 <div
