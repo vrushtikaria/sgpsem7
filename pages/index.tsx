@@ -43,7 +43,7 @@ export default function Home({ prods, cats }) {
                     />
                   </span>
                   <h1 className="text-base h-16 mt-4">{prod.title}</h1>
-                  <h2 className="font-semibold mb-4">₹{prod.price}</h2>
+                  <h2 className="font-semibold mb-4 mt-3">₹{prod.price}</h2>
                   <button className="p-2 px-6 bg-blue-500 text-white rounded-md hover:bg-red-600">
                     Add To Cart
                   </button>
