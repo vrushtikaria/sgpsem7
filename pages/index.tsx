@@ -5,6 +5,7 @@ import Carousel from "../components/Carousel";
 import Footer from "../components/Footer/Footer";
 import Nav from "../components/Navs/Nav";
 import Nav2 from "../components/Navs/Nav2";
+import Products from "../components/Products";
 import dbConnect from "../lib/dbConnect";
 import Category from "../models/categorySchema";
 import Product from "../models/productSchema";
@@ -24,32 +25,9 @@ export default function Home({ prods, cats }) {
           <Nav2 filter={setProds} cats={cats} />
         </nav>
         <Carousel />
-        <div className="container mx-auto py-10 md:py-20  max-w-6xl min-w-[484px]">
-          <div className="p-5 md:p-0 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-4 items-start transition-all duration-500">
-            {products.map((prod) => {
-              return (
-                <div
-                  key={prod._id}
-                  className="p-5 py-12 text-left transform duration-500 hover:-translate-y-2 hover:shadow-2xl cursor-pointer bg-gray-200 rounded-xl hover:ring-medi hover:ring-2"
-                >
-                  <span>
-                    <Image
-                      className="p-5"
-                      src={prod.image}
-                      alt={prod.slug}
-                      width={60}
-                      height={60}
-                      layout="responsive"
-                    />
-                  </span>
-                  <h1 className="text-base h-16 mt-4">{prod.title}</h1>
-                  <h2 className="font-semibold mb-4">₹{prod.price}</h2>
-                  <button className="p-2 px-6 bg-blue-500 text-white rounded-md hover:bg-red-600">
-                    Add To Cart
-                  </button>
-                </div>
-              );
-            })}
+        <div className="container mx-auto py-10 md:py-20  max-w-8xl min-w-[484px]">
+          <div className="p-5 md:p-0 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 items-start transition-all duration-500">
+            <Products prods={products} />
           </div>
         </div>
 

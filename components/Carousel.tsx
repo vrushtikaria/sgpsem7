@@ -9,9 +9,12 @@ const carouselImage = [
 const Carousel = () => {
   return (
     <>
-      <div className="w-screen h-96 overflow-hidden space-x-0" id="slideset2">
+      <div
+        className="w-full h-24  md:h-36 lg:h-48 xl:h-96 overflow-hidden space-x-0"
+        id="slideset2"
+      >
         {carouselImage.map((image) => {
-          return <img key={image} className="m-0 p-0" src={image} alt="" />;
+          return <img key={image} className="m-0 p-0 " src={image} alt="" />;
         })}
       </div>
     </>
