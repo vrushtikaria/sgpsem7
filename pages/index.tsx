@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import React from "react";
 import { useState } from "react";
 import Carousel from "../components/Carousel";
 import Footer from "../components/Footer/Footer";
@@ -12,7 +13,13 @@ import Product from "../models/productSchema";
 
 export default function Home({ prods, cats }) {
   const [products, setProds] = useState(prods);
+  const [cart, setCart] = useState([]);
 
+  function addToCart(product) {
+    let prods = cart;
+    prods = [...cart, product];
+    setCart(prods);
+  }
   return (
     <>
       <Head>
@@ -21,7 +28,7 @@ export default function Home({ prods, cats }) {
       </Head>
       <div className="w-fit lg:w-full">
         <nav className="m-0">
-          <Nav />
+          <Nav cart={cart} />
           <Nav2 filter={setProds} cats={cats} />
         </nav>
         <Carousel />
@@ -35,7 +42,7 @@ export default function Home({ prods, cats }) {
         {/* display prods Here  */}
         <div className="container mx-auto py-5 md:py-20 max-w-8xl min-w-[484px]">
           <div className="p-5 xl:p-0 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 items-start transition-all duration-500">
-            <Products prods={products} />
+            <Products prods={products} addToCart={addToCart} />
           </div>
         </div>
 

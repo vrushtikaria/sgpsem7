@@ -10,7 +10,7 @@ const Carousel = () => {
   return (
     <>
       <div
-        className="w-full h-24  md:h-36 xl:bg-red-500 2 lg:h-48 xl:h-72 2xl-[400px] overflow-hidden space-x-0"
+        className="w-full h-24 md:h-36 lg:h-48 xl:h-60 2xl:h-[400px] overflow-hidden space-x-0"
         id="slideset2"
       >
         {carouselImage.map((image) => {

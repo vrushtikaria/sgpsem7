@@ -1,7 +1,7 @@
 import Cart from "@heroicons/react/outline/ShoppingCartIcon";
 import Menu from "@heroicons/react/outline/MenuIcon";
 import UserIcon from "@heroicons/react/outline/UserIcon";
-const Nav = () => {
+const Nav = ({ cart }) => {
   // function for toggling dropdown menu
   function dropdownClick() {
     let state = document.getElementById("dropdown").className;
@@ -36,9 +36,9 @@ const Nav = () => {
           </div>
         </div>
         <div className="flex space-x-3 text-white text-[1.05rem] items-center">
-          <a className="inline-flex" href="#">
+          <a className="inline-flex">
             <Cart className="w-6" />
-            Cart
+            Cart<span>{cart.length}</span>
           </a>
           <a className="inline-flex" href="#">
             <UserIcon className="w-6" />
