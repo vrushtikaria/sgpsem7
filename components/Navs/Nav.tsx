@@ -19,7 +19,7 @@ const Nav = ({ cart }) => {
 
   return (
     <>
-      <div className="bg-medi px-6 h-20 flex justify-between items-center">
+      <div className="bg-medi z-50 fixed w-full px-6 h-20 flex justify-between items-center">
         <div className="w-3/4 space-x-4 inline-flex justify-start items-center">
           <img className="h-12" src="./images/logo.jpg" alt="" />
           <div className="sm:flex sm:w-full hidden ">
@@ -36,9 +36,10 @@ const Nav = ({ cart }) => {
           </div>
         </div>
         <div className="flex space-x-3 text-white text-[1.05rem] items-center">
-          <a className="inline-flex">
+          <a className="inline-flex" href="/cart">
             <Cart className="w-6" />
-            Cart<span>{cart.length}</span>
+            Cart
+            <span className="ml-1">{cart.length}</span>
           </a>
           <a className="inline-flex" href="#">
             <UserIcon className="w-6" />

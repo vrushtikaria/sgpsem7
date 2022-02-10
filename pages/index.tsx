@@ -24,17 +24,18 @@ export default function Home({ prods, cats }) {
     <>
       <Head>
         <title>MediCare2.0</title>
-        <link rel="icon" href="/images/logo.jpg" />
+        <link rel="icon" href="/images/logo copy.png" />
       </Head>
-      <div className="w-fit lg:w-full">
-        <nav className="m-0">
+      <div className="w-fit lg:w-full flex flex-col">
+        <div className="m-0 w-full">
           <Nav cart={cart} />
           <Nav2 filter={setProds} cats={cats} />
-        </nav>
+        </div>
+
         <Carousel />
         <Image
           src="/images/a_carousel.png"
-          className="w-auto"
+          className="w-auto sticky top-0"
           layout="responsive"
           width={500}
           height={60}
