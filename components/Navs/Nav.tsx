@@ -1,7 +1,9 @@
 import Cart from "@heroicons/react/outline/ShoppingCartIcon";
 import Menu from "@heroicons/react/outline/MenuIcon";
 import UserIcon from "@heroicons/react/outline/UserIcon";
+import { useState } from "react";
 const Nav = ({ cart }) => {
+  // const [searchVal, setsearchVal] = useState(null);
   // function for toggling dropdown menu
   function dropdownClick() {
     let state = document.getElementById("dropdown").className;
@@ -17,6 +19,9 @@ const Nav = ({ cart }) => {
     }
   }
 
+  function searchProd(event) {
+    console.log(event);
+  }
   return (
     <>
       <div className="bg-medi z-50 fixed w-full px-6 h-20 flex justify-between items-center">
@@ -29,6 +34,7 @@ const Nav = ({ cart }) => {
               name="find_prod"
               id="prod_search"
               placeholder="Search"
+              onChange={searchProd}
             />
             <button className="flex items-center uppercase font-light text-sm h-8 text-green-300 justify-center mx-2 px-5 py-2 outline outline-2 rounded outline-green-500">
               Search
