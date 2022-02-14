@@ -1,7 +1,6 @@
 import Cart from "@heroicons/react/outline/ShoppingCartIcon";
 import Menu from "@heroicons/react/outline/MenuIcon";
 import UserIcon from "@heroicons/react/outline/UserIcon";
-import { useState } from "react";
 const Nav = ({ cart }) => {
   // const [searchVal, setsearchVal] = useState(null);
   // function for toggling dropdown menu
@@ -23,8 +22,8 @@ const Nav = ({ cart }) => {
     console.log(event);
   }
   return (
-    <>
-      <div className="bg-medi z-50 fixed w-full px-6 h-20 flex justify-between items-center">
+    <div className="flex flex-col m-0 w-full sticky top-0 z-50">
+      <div className="bg-medi z-50 w-full px-6 h-20 flex justify-between items-center">
         <div className="w-3/4 space-x-4 inline-flex justify-start items-center">
           <img className="h-12" src="./images/logo.jpg" alt="" />
           <div className="sm:flex sm:w-full hidden ">
@@ -74,7 +73,7 @@ const Nav = ({ cart }) => {
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

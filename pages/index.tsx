@@ -27,8 +27,8 @@ export default function Home({ prods, cats }) {
         <link rel="icon" href="/images/logo copy.png" />
       </Head>
       <div className="w-fit lg:w-full inline-flex flex-col">
+        <Nav cart={cart} />
         <div className="m-0 w-full">
-          <Nav cart={cart} />
           <Nav2 filter={setProds} cats={cats} />
         </div>
         <div>
