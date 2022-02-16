@@ -17,8 +17,10 @@ export default function Home({ prods, cats }) {
 
   function addToCart(product) {
     let prods = cart;
+    let prod = event?.target;
     prods = [...cart, product];
     setCart(prods);
+    console.log(prod);
   }
   return (
     <>

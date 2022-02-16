@@ -41,10 +41,15 @@ const Nav = ({ cart }) => {
           </div>
         </div>
         <div className="flex space-x-3 text-white text-[1.05rem] items-center">
-          <a className="inline-flex" href="/cart">
+          <a className="inline-flex relative" href="/cart">
             <Cart className="w-6" />
             Cart
             <span className="ml-1">{cart.length}</span>
+            {/* <div className="h-9 bg-white absolute top-8">
+              {cart.map((cat) => {
+                return <div>{cat}</div>;
+              })}
+            </div> */}
           </a>
           <a className="inline-flex" href="#">
             <UserIcon className="w-6" />
