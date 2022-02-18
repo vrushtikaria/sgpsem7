@@ -10,7 +10,7 @@ const Nav2 = ({ filter, cats }) => {
 
   return (
     <>
-      <div className="bg-medi fixed sm:sticky bottom-0 right-0 left-0  md:px-6 h-15 flex  items-center text-lg text-white text-center z-10">
+      <div className="bg-medi sm:sticky bottom-0 right-0 left-0  md:px-6 h-15 flex  items-center text-lg text-white text-center z-10">
         {cats.map((cat) => {
           return (
             <h3

@@ -1,7 +1,8 @@
 import Cart from "@heroicons/react/outline/ShoppingCartIcon";
 import Menu from "@heroicons/react/outline/MenuIcon";
 import UserIcon from "@heroicons/react/outline/UserIcon";
-const Nav = () => {
+const Nav = ({ cart }) => {
+  // const [searchVal, setsearchVal] = useState(null);
   // function for toggling dropdown menu
   function dropdownClick() {
     let state = document.getElementById("dropdown").className;
@@ -17,9 +18,12 @@ const Nav = () => {
     }
   }
 
+  function searchProd(event) {
+    console.log(event);
+  }
   return (
-    <>
-      <div className="bg-medi px-6 h-20 flex justify-between items-center">
+    <div className="flex flex-col m-0 w-full sticky top-0 z-50">
+      <div className="bg-medi z-50 w-full px-6 h-20 flex justify-between items-center">
         <div className="w-3/4 space-x-4 inline-flex justify-start items-center">
           <img className="h-12" src="./images/logo.jpg" alt="" />
           <div className="sm:flex sm:w-full hidden ">
@@ -29,6 +33,7 @@ const Nav = () => {
               name="find_prod"
               id="prod_search"
               placeholder="Search"
+              onChange={searchProd}
             />
             <button className="flex items-center uppercase font-light text-sm h-8 text-green-300 justify-center mx-2 px-5 py-2 outline outline-2 rounded outline-green-500">
               Search
@@ -36,9 +41,15 @@ const Nav = () => {
           </div>
         </div>
         <div className="flex space-x-3 text-white text-[1.05rem] items-center">
-          <a className="inline-flex" href="#">
+          <a className="inline-flex relative" href="/cart">
             <Cart className="w-6" />
             Cart
+            <span className="ml-1">{cart.length}</span>
+            {/* <div className="h-9 bg-white absolute top-8">
+              {cart.map((cat) => {
+                return <div>{cat}</div>;
+              })}
+            </div> */}
           </a>
           <a className="inline-flex" href="#">
             <UserIcon className="w-6" />
@@ -67,7 +78,7 @@ const Nav = () => {
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
