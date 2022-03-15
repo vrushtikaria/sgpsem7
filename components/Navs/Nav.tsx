@@ -2,9 +2,40 @@ import Cart from "@heroicons/react/outline/ShoppingCartIcon";
 import Menu from "@heroicons/react/outline/MenuIcon";
 import UserIcon from "@heroicons/react/outline/UserIcon";
 import Link from "next/link";
+import productContext from "../../contexts/Products/productContext";
+import { useContext } from "react";
+import axios from "axios";
+
 const Nav = ({ cart }) => {
-  // const [searchVal, setsearchVal] = useState(null);
   // function for toggling dropdown menu
+  const { searchValue, setSearchValue, setFilteredProducts, products } =
+    useContext(productContext);
+
+  async function handleSearchSubmit(event) {
+    event.preventDefault();
+    let search = searchValue.toString().replace(/\s+/g, "-").toLowerCase();
+    const res = await axios.get(`/api/products/search?search=${search}`);
+    setFilteredProducts(res.data);
+  }
+
+  async function handleSearch(event) {
+    let search = event.target.value
+      .toString()
+      .replace(/\s+/g, "-")
+      .toLowerCase();
+    if (search) {
+      const prods = products.filter((prod) => {
+        if (prod.slug.includes(search)) {
+          return prod;
+        }
+      });
+      setFilteredProducts(prods);
+      setSearchValue(search);
+    } else {
+      setFilteredProducts(products);
+    }
+  }
+
   function dropdownClick() {
     let state = document.getElementById("dropdown").className;
     let btn = document.getElementById("toggler");
@@ -19,27 +50,37 @@ const Nav = ({ cart }) => {
     }
   }
 
-  function searchProd(event) {
-    console.log(event);
-  }
   return (
     <div className="flex flex-col m-0 w-full sticky top-0 z-50">
       <div className="bg-medi-100 z-50 w-full px-6 h-20 flex justify-between items-center">
         <div className="w-3/4 space-x-4 inline-flex justify-start items-center">
-          <img className="h-12" src="./images/logo.jpg" alt="" />
-          <div className="sm:flex sm:w-full hidden ">
+          <Link href="/">
+            <a>
+              <img className="h-12" src="./images/logo.jpg" alt="" />
+            </a>
+          </Link>
+          <form
+            className="sm:flex sm:w-full hidden"
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSearchSubmit(e);
+            }}
+          >
             <input
               className="w-5/6 rounded-sm focus:outline focus:outline-2 focus:outline-offset-0 py-1 px-2 focus:outline-blue-500 placeholder:italic "
               type="search"
-              name="find_prod"
+              name="search"
               id="prod_search"
               placeholder="Search"
-              onChange={searchProd}
+              onChange={handleSearch}
             />
-            <button className="flex items-center uppercase font-light text-sm h-8 text-green-300 justify-center mx-2 px-5 py-2 outline outline-2 rounded outline-green-500">
+            <button
+              type="submit"
+              className="flex items-center uppercase font-light text-sm h-8 text-green-300 justify-center mx-2 px-5 py-2 outline outline-2 rounded outline-green-500"
+            >
               Search
             </button>
-          </div>
+          </form>
         </div>
         <div className="flex space-x-3 text-white text-[1.05rem] items-center">
           <a className="inline-flex relative group" href="/cart">
@@ -58,7 +99,7 @@ const Nav = ({ cart }) => {
             
             */}
           </a>
-          <a className="inline-flex" href="#">
+          <div className="inline-flex">
             <UserIcon className="w-6" />
             <Link href="/login">
               <a>Login</a>
@@ -67,7 +108,7 @@ const Nav = ({ cart }) => {
             <Link href="/register">
               <a>SignUp</a>
             </Link>
-          </a>
+          </div>
           <button
             onClick={dropdownClick}
             id="toggler"
@@ -78,18 +119,28 @@ const Nav = ({ cart }) => {
         </div>
       </div>
       <div id="dropdown" className="hidden sm:hidden">
-        <div className="flex bg-medi-100 w-full p-3 mx-auto">
+        <form
+          className="flex bg-medi-100 w-full p-3 mx-auto"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSearchSubmit(e);
+          }}
+        >
           <input
             className="w-5/6 rounded-sm focus:outline focus:outline-2 focus:outline-offset-0 py-1 px-2 focus:outline-blue-500 placeholder:italic "
             type="search"
-            name="find_prod"
+            name="search"
             id="prod_search"
             placeholder="Search"
+            onChange={handleSearch}
           />
-          <button className="flex items-center uppercase font-light text-sm h-8 text-green-300 justify-center mx-2 px-5 py-2 outline outline-2 rounded outline-green-500">
+          <button
+            type="submit"
+            className="flex items-center uppercase font-light text-sm h-8 text-green-300 justify-center mx-2 px-5 py-2 outline outline-2 rounded outline-green-500"
+          >
             Search
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );

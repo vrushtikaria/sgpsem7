@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
-const login = () => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -98,9 +98,11 @@ const login = () => {
             </div>
             <div className="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
               Don&apos;t have an account ?
-              <a className="cursor-pointer text-medi-100 hover:text-medi-200">
-                Sign up
-              </a>
+              <Link href="/register">
+                <a className="cursor-pointer text-medi-100 hover:text-medi-200">
+                  Sign up
+                </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -269,4 +271,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;
