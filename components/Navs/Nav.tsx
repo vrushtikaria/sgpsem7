@@ -1,21 +1,35 @@
-import Cart from "@heroicons/react/outline/ShoppingCartIcon";
-import Menu from "@heroicons/react/outline/MenuIcon";
-import UserIcon from "@heroicons/react/outline/UserIcon";
-import Link from "next/link";
+import { ShoppingCartIcon, MenuIcon, UserIcon } from "@heroicons/react/outline";
 import productContext from "../../contexts/Products/productContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import axios from "axios";
+import userContext from "../../contexts/User/userContext";
+import Link from "next/link";
+import Router from "next/router";
+import Image from "next/image";
 
-const Nav = ({ cart }) => {
+const Nav = () => {
   // function for toggling dropdown menu
   const { searchValue, setSearchValue, setFilteredProducts, products } =
     useContext(productContext);
+  const { user, cart } = useContext(userContext);
 
+  useEffect(() => {
+    if (Router.query.search) {
+      setSearchValue(Router.query.search);
+    }
+    return setSearchValue("");
+  }, []);
+
+  // function to search products
   async function handleSearchSubmit(event) {
     event.preventDefault();
     let search = searchValue.toString().replace(/\s+/g, "-").toLowerCase();
+    if (Router.pathname !== "/") {
+      Router.push("/?search=" + search);
+    }
     const res = await axios.get(`/api/products/search?search=${search}`);
-    setFilteredProducts(res.data);
+    await Router.replace(`/?search=${search}`);
+    await setFilteredProducts(res.data);
   }
 
   async function handleSearch(event) {
@@ -29,9 +43,10 @@ const Nav = ({ cart }) => {
           return prod;
         }
       });
-      setFilteredProducts(prods);
       setSearchValue(search);
+      setFilteredProducts(prods);
     } else {
+      setSearchValue(search);
       setFilteredProducts(products);
     }
   }
@@ -56,7 +71,13 @@ const Nav = ({ cart }) => {
         <div className="w-3/4 space-x-4 inline-flex justify-start items-center">
           <Link href="/">
             <a>
-              <img className="h-12" src="./images/logo.jpg" alt="" />
+              <Image
+                height="48px"
+                width="150px"
+                className="h-12"
+                src="/images/logo.jpg"
+                alt=""
+              />
             </a>
           </Link>
           <form
@@ -72,6 +93,7 @@ const Nav = ({ cart }) => {
               name="search"
               id="prod_search"
               placeholder="Search"
+              value={searchValue}
               onChange={handleSearch}
             />
             <button
@@ -84,7 +106,7 @@ const Nav = ({ cart }) => {
         </div>
         <div className="flex space-x-3 text-white text-[1.05rem] items-center">
           <a className="inline-flex relative group" href="/cart">
-            <Cart className="w-6" />
+            <ShoppingCartIcon className="w-6" />
             Cart
             <span className="ml-1">{cart.length}</span>
             {/* 
@@ -100,21 +122,32 @@ const Nav = ({ cart }) => {
             */}
           </a>
           <div className="inline-flex">
-            <UserIcon className="w-6" />
-            <Link href="/login">
-              <a>Login</a>
-            </Link>
-            /
-            <Link href="/register">
-              <a>SignUp</a>
-            </Link>
+            <UserIcon className="w-6 " />
+            {user == null ? (
+              <>
+                <Link href="/login">
+                  <a>Login</a>
+                </Link>
+                /
+                <Link href="/register">
+                  <a>SignUp</a>
+                </Link>
+              </>
+            ) : (
+              <span className="duration-1000 transition-all ease-in">
+                {" "}
+                <Link href="/user">
+                  <a>{user.name}</a>
+                </Link>
+              </span>
+            )}
           </div>
           <button
             onClick={dropdownClick}
             id="toggler"
             className="bg-[#00a59c] rounded-md shadow-sm shadow-gray-500 sm:hidden"
           >
-            <Menu className="w-10" color="white" />
+            <MenuIcon className="w-10" color="white" />
           </button>
         </div>
       </div>

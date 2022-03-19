@@ -4,7 +4,6 @@ import User from "../../../models/userSchema";
 export default async function handler(req, res) {
   await dbConnect();
   const user = req.body;
-  console.log(user);
 
   const { email, password } = user;
   const userData = await User.findOne({ email });
@@ -14,7 +13,6 @@ export default async function handler(req, res) {
       message: "Email or password is incorrect",
     });
   }
-  console.log(userData);
 
   const isPasswordValid =
     parseInt(password) === userData.password ? true : false;
@@ -23,8 +21,14 @@ export default async function handler(req, res) {
       message: "Email or password is incorrect",
     });
   }
+  const resUserData = {
+    id: userData.id,
+    email: userData.email,
+    name: userData.name,
+    role: userData.role,
+  };
   res.status(200).json({
     message: "Login success",
-    user: userData,
+    user: resUserData,
   });
 }

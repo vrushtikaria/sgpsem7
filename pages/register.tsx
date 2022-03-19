@@ -1,18 +1,25 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
+import Router from "next/router";
+import userContext from "../contexts/User/userContext";
+
 const Register = () => {
+  const { setUser } = useContext(userContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   //function to handle register
   const handleSubmit = async (e) => {
     e.preventDefault();
     await axios
       .post("/api/auth/register", { name, email, password })
-      .then(({ data }) => {
-        console.log(data);
+      .then(async ({ data }) => {
+        await setUser(data.user);
+        sessionStorage.setItem("user", JSON.stringify(data.user));
+        Router.push("/");
       })
       .catch((err) => {
         let message =
@@ -22,6 +29,7 @@ const Register = () => {
         console.warn("error", message);
       });
   };
+
   return (
     <div className="lg:flex">
       <div className="hidden lg:flex items-center justify-center bg-[#e8fcfb] flex-1 h-screen ">
@@ -187,13 +195,14 @@ const Register = () => {
       <div className="lg:w-1/2 xl:max-w-screen-sm">
         <div className="py-12 bg-[#e8fcfb] lg:bg-white flex justify-center lg:justify-start lg:px-12">
           <div className="cursor-pointer flex items-center">
-            <Link href="/">
+            <Link href="/" passHref>
               <div className="text-2xl text-medi-200 tracking-wide ml-2 font-semibold inline-flex items-center">
                 <Image
-                  height="44px"
-                  width="44px"
                   src="/images/logo_medi.png"
                   className="h-11 color-black filter"
+                  alt="logo"
+                  height="44px"
+                  width="44px"
                 />
                 <p className="ml-2">MediCare</p>
               </div>
@@ -250,17 +259,17 @@ const Register = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-            </form>
-            <div className="mt-10">
-              <button
-                className="bg-medi-100 text-gray-100 p-4 w-full rounded-full tracking-wide
+              <div className="mt-10">
+                <button
+                  className="bg-medi-100 text-gray-100 p-4 w-full rounded-full tracking-wide
                                 font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-medi-200
                                 shadow-lg"
-                onClick={handleSubmit}
-              >
-                Register
-              </button>
-            </div>
+                  onClick={handleSubmit}
+                >
+                  Register
+                </button>
+              </div>
+            </form>
             <div className="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
               Already have an account ?{" "}
               <Link href="/login">
