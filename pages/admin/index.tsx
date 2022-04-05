@@ -42,7 +42,7 @@ const index = ({ prods }) => {
               <li>
                 <button className="flex gap-x-2 items-center py-5 px-6 text-gray-500 hover:text-indigo-600 relative group">
                   {/* <Component className="w-6 h-6 fill-current" /> */}
-                  <span className="font-medium"> item.name </span>
+                  {/* <span className="font-medium"> item.name </span> */}
                   <span className="absolute w-full h-0.5 left-3 bg-indigo-600 rounded bottom-0 scale-x-0 group-hover:scale-x-100 transition-transform ease-in-out" />
                 </button>
               </li>
@@ -103,12 +103,12 @@ const index = ({ prods }) => {
                       </td>
                       <td className="font-medium text-center">
                         {" "}
-                        product.Orders{" "}
+                        {/* product.Orders{" "} */}{" "}
                       </td>
 
                       <td>
                         <span className="inline-block w-20 group-hover:hidden">
-                          product.createdAt
+                          
                         </span>
                         <div className="hidden group-hover:flex group-hover:w-20 group-hover:items-center group-hover:text-gray-500 group-hover:gap-x-2">
                           <button className="p-2 hover:rounded-md hover:bg-gray-200">
