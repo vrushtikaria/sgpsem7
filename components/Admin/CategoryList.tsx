@@ -6,14 +6,21 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
 } from "@heroicons/react/outline";
-import dbConnect from "../../lib/dbConnect";
-import Category from "../../models/categorySchema";
-import Image from "next/image";
-import Sidebar from "../../components/Admin/Sidebar";
 import { useState } from "react";
+import axios from "axios";
 
 const CategoryList = ({cats}) => {
-    const [categories, setCategories] = useState(cats);
+
+  const deleteCategory = async (e) => {
+    console.log(e.currentTarget.name);
+    const response = await axios.delete(
+      `/api/admin/categories?cat${e.currentTarget.name}`
+    );
+    const del = await response.data;
+    console.log(del);
+  };
+    
+  
     return(
     <div className="flex">
       <div className="flex-1">
@@ -80,6 +87,10 @@ const CategoryList = ({cats}) => {
                       </button>
                       <button
                         className="p-2 hover:rounded-md hover:bg-gray-200"
+                        name={cat._id}
+                        onClick={(e) => {
+                          deleteCategory(e);
+                        }}
                       >
                         <TrashIcon className="w-6 h-6 fill-current" />
                       </button>
