@@ -1,31 +1,21 @@
-import{
+import {
   PlusIcon,
   FilterIcon,
   PencilIcon,
   TrashIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-}from "@heroicons/react/outline";
+} from "@heroicons/react/outline";
 import dbConnect from "../../lib/dbConnect";
 import Category from "../../models/categorySchema";
 import Image from "next/image";
 import Sidebar from "../../components/Admin/Sidebar";
+import { useState } from "react";
 
-const categories = ({cats}) => {
-  
-    const deleteCategory = async(e) => {
-    const response = await fetch('../api/admin/categories.ts/${categoryID}', {
-        method: 'DELETE'
-    });
-    const del = await response.json()
-    console.log(del)
-  }
-
-  return(
+const CategoryList = ({cats}) => {
+    const [categories, setCategories] = useState(cats);
+    return(
     <div className="flex">
-      <div className="m-0">
-        <Sidebar/>
-      </div>
       <div className="flex-1">
         <div className="flex items-center justify-between py-7 px-10">
           <div>
@@ -88,7 +78,9 @@ const categories = ({cats}) => {
                       <button className="p-2 hover:rounded-md hover:bg-gray-200">
                         <PencilIcon className="w-6 h-6 fill-current" />
                       </button>
-                      <button onClick={deleteCategory} className="p-2 hover:rounded-md hover:bg-gray-200">
+                      <button
+                        className="p-2 hover:rounded-md hover:bg-gray-200"
+                      >
                         <TrashIcon className="w-6 h-6 fill-current" />
                       </button>
                     </div>
@@ -100,22 +92,7 @@ const categories = ({cats}) => {
         </table>
       </div>
     </div>
-  );
+    );
 };
 
-export default categories;
-
-export async function getServerSideProps(){
-  //connect to database
-  await dbConnect();
-  //get initial products
-  const categories = await Category.find({});
-  const cats = categories.map((doc) => {
-    const cat = doc.toObject();
-    cat._id = cat._id.toString();
-    cat._id;
-    return cat;
-  }
-  );
-  return { props: { cats: cats } };
-};
+export default CategoryList;
