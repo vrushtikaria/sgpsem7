@@ -31,7 +31,7 @@ const Index = ({ prods, cats, user }) => {
       case "orders":
         return <OrderList />;
       case "categories":
-        return <CategoryList />;
+        return <CategoryList cats = {cats}/>;
       case "Reminders":
         return <RemindersList />;
       default:

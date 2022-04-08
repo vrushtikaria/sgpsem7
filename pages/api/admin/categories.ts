@@ -7,12 +7,14 @@ import dbConnect from "../../../lib/dbConnect";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     await dbConnect();
-    const{categoryId} = req.query
+    const cat = req.query.cat
     if(req.method === 'DELETE'){
-        const deletedCategory = Category.findByIdAndDelete(req.body.id, (err) => {
-            if(err){return console.log(err);}
-        })
+        const deletedCategory = await Category.findOne({cat}) 
+        deletedCategory.delete()
+        res.json(deletedCategory)
     }
+        
+    
 }
 
 export default handler;
