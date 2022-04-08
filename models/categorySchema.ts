@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const categoeySchema = new mongoose.Schema({
+const categorySchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -10,4 +10,4 @@ const categoeySchema = new mongoose.Schema({
 });
 
 export default mongoose.models.Category ||
-  mongoose.model("Category", categoeySchema);
+  mongoose.model("Category", categorySchema);
