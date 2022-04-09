@@ -6,12 +6,12 @@ import userContext from "../../contexts/User/userContext";
 import Link from "next/link";
 import Router from "next/router";
 import Image from "next/image";
-
 const Nav = () => {
   // function for toggling dropdown menu
   const { searchValue, setSearchValue, setFilteredProducts, products } =
     useContext(productContext);
-  const { user, cart } = useContext(userContext);
+  const { user, cart, setCart, setIsAdmin, setIsAuthenticated, setUser } =
+    useContext(userContext);
 
   useEffect(() => {
     if (Router.query.search) {
@@ -49,6 +49,15 @@ const Nav = () => {
       setSearchValue(search);
       setFilteredProducts(products);
     }
+  }
+
+  //function to handle Logout
+  async function handleLogout() {
+    setCart([]);
+    setIsAdmin(false);
+    setIsAuthenticated(false);
+    setUser(null);
+    sessionStorage.clear();
   }
 
   function dropdownClick() {
@@ -121,24 +130,40 @@ const Nav = () => {
             
             */}
           </a>
-          <div className="inline-flex">
+          <div className={user == null ? "inline-flex" : "inline-flex group"}>
             <UserIcon className="w-6 " />
             {user == null ? (
               <>
-                <Link href="/login">
+                <Link href="/auth/login">
                   <a>Login</a>
                 </Link>
                 /
-                <Link href="/register">
+                <Link href="/auth/register">
                   <a>SignUp</a>
                 </Link>
               </>
             ) : (
-              <span className="duration-1000 transition-all ease-in">
+              <span className="duration-1000 transition-all ease-in relative group">
                 {" "}
                 <Link href="/user">
-                  <a>{user.name}</a>
+                  <a>{user.fname}</a>
                 </Link>
+                <ul className="absolute p-3 top-100 right-0 w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white group-hover:opacity-100 opacity-0">
+                  <Link href="/user">
+                    <a>
+                      <li className="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                        Profile
+                      </li>
+                    </a>
+                  </Link>
+
+                  <li
+                    onClick={handleLogout}
+                    className="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600 hover:bg-red-500 rounded-md"
+                  >
+                    Logout
+                  </li>
+                </ul>
               </span>
             )}
           </div>

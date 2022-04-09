@@ -4,22 +4,24 @@ import Image from "next/image";
 import Router from "next/router";
 import { useContext, useEffect } from "react";
 import { Nav, Nav2, Footer, Products, Carousel } from "../components";
-import productContext from "../contexts/Products/productContext";
-import userContext from "../contexts/User/userContext";
+import { UserContext, ProductContext } from "../contexts";
 import dbConnect from "../lib/dbConnect";
 import Category from "../models/categorySchema";
 import Product from "../models/productSchema";
 
 export default function Home({ prods, cats }) {
   const { products, filteredProducts, setFilteredProducts, setProducts } =
-    useContext(productContext);
-  const { cart, setCart } = useContext(userContext);
+    useContext(ProductContext);
+  const { cart, setCart } = useContext(UserContext);
 
-  
+  useEffect(() => {
+    setProducts(prods);
+  }, []);
+
   useEffect(() => {
     setProducts(prods);
     setFilteredProducts(products);
-    if (Router.query.search) {
+    if (Router.query.search !== undefined) {
       let search = Router.query.search;
       axios
         .get(`/api/products/search?search=${search}`)
@@ -28,7 +30,7 @@ export default function Home({ prods, cats }) {
         })
         .catch((err) => console.log(err));
     }
-  }, []);
+  }, [products]);
 
   //function to add product to cart
   function addToCart(product) {

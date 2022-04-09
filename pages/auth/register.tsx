@@ -1,25 +1,26 @@
-import { useState, useContext } from "react";
+import { useContext, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import axios from "axios";
-import { UserContext } from "../contexts";
+import Router from "next/router";
+import { UserContext } from "../../contexts";
 
-const Login = () => {
-  const router = useRouter();
+const Register = () => {
+  const { setUser } = useContext(UserContext);
+  const [fname, setFName] = useState("");
+  const [lname, setLName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setUser } = useContext(UserContext);
 
-  //function to handle the login
+  //function to handle register
   const handleSubmit = async (e) => {
     e.preventDefault();
     await axios
-      .post("/api/auth/login", { email, password })
+      .post("/api/auth/register", { fname, lname, email, password })
       .then(async ({ data }) => {
         await setUser(data.user);
         sessionStorage.setItem("user", JSON.stringify(data.user));
-        router.push("/");
+        Router.push("/");
       })
       .catch((err) => {
         let message =
@@ -32,98 +33,17 @@ const Login = () => {
 
   return (
     <div className="lg:flex">
-      <div className="lg:w-1/2 xl:max-w-screen-sm">
-        <div className="py-12 bg-[#e8fcfb] lg:bg-white  flex justify-center lg:justify-start lg:px-12">
-          <div className="cursor-pointer flex items-center">
-            <Link href="/" passHref>
-              <div className="text-2xl text-medi-200 tracking-wide ml-2 font-semibold inline-flex items-center">
-                <Image
-                  alt="logo"
-                  height="44px"
-                  width="44px"
-                  src="/images/logo_medi.png"
-                  className="h-11 color-black filter"
-                />
-                <p className="ml-2">MediCare</p>
-              </div>
-            </Link>
-          </div>
-        </div>
-        <div className="mt-10 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl">
-          <h2
-            className="text-center text-4xl text-medi-100 font-display font-semibold lg:text-left xl:text-5xl
-                    xl:text-bold"
-          >
-            Log in
-          </h2>
-          <div className="mt-12">
-            <form>
-              <div>
-                <div className="text-sm font-bold text-gray-700 tracking-wide">
-                  Email Address
-                </div>
-                <input
-                  className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-medi"
-                  placeholder="sgp@gmail.com"
-                  type="email"
-                  name="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="mt-8">
-                <div className="flex justify-between items-center">
-                  <div className="text-sm font-bold text-gray-700 tracking-wide">
-                    Password
-                  </div>
-                  <div>
-                    <a className="text-xs font-display font-semibold text-medi hover:text-medi cursor-pointer">
-                      Forgot Password?
-                    </a>
-                  </div>
-                </div>
-                <input
-                  className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
-                  placeholder="Enter your password"
-                  type="password"
-                  name="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <div className="mt-10">
-                <button
-                  className="bg-medi-100 text-gray-100 p-4 w-full rounded-full tracking-wide
-                                font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-medi-200
-                                shadow-lg"
-                  onClick={handleSubmit}
-                >
-                  Log In
-                </button>
-              </div>
-            </form>
-            <div className="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
-              Don&apos;t have an account ?
-              <Link href="/register">
-                <a className="cursor-pointer text-medi-100 hover:text-medi-200">
-                  Sign up
-                </a>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="hidden lg:flex items-center justify-center bg-[#e8fcfb] flex-1 h-screen">
-        <Link href="/register">
-          <a className="max-w-xs transform duration-200 hover:scale-110 cursor-pointer">
+      <div className="hidden lg:flex items-center justify-center bg-[#e8fcfb] flex-1 h-screen ">
+        <Link href="/auth/login">
+          <a className="max-w-xs transform  duration-200 hover:scale-110 cursor-pointer">
             <svg
-              className="w-5/6 mx-auto"
+              className="w-5/6 mx-auto -scale-x-100"
               xmlns="http://www.w3.org/2000/svg"
               id="f080dbb7-9b2b-439b-a118-60b91c514f72"
               data-name="Layer 1"
               viewBox="0 0 528.71721 699.76785"
             >
-              <title>Login</title>
+              <title>Register</title>
               <rect y="17.06342" width={444} height={657} fill="#535461" />
               <polygon
                 points="323 691.063 0 674.063 0 17.063 323 0.063 323 691.063"
@@ -273,8 +193,113 @@ const Login = () => {
           </a>
         </Link>
       </div>
+      <div className="lg:w-1/2 xl:max-w-screen-sm">
+        <div className="py-12 bg-[#e8fcfb] lg:bg-white flex justify-center lg:justify-start lg:px-12">
+          <div className="cursor-pointer flex items-center">
+            <Link href="/" passHref>
+              <div className="text-2xl text-medi-200 tracking-wide ml-2 font-semibold inline-flex items-center">
+                <Image
+                  src="/images/logo_medi.png"
+                  className="h-11 color-black filter"
+                  alt="logo"
+                  height="44px"
+                  width="44px"
+                />
+                <p className="ml-2">MediCare</p>
+              </div>
+            </Link>
+          </div>
+        </div>
+        <div className="mt-10 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl">
+          <h2
+            className="text-center text-4xl text-medi-100 font-display font-semibold lg:text-left xl:text-5xl
+                    xl:text-bold"
+          >
+            Register
+          </h2>
+          <div className="mt-12">
+            <form onSubmit={(e) => e.preventDefault}>
+              <div className="mt-8 flex space-x-4">
+                <span>
+                  <div className="text-sm font-bold text-gray-700 tracking-wide">
+                    First Name
+                  </div>
+                  <input
+                    className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-medi"
+                    placeholder="John"
+                    type="text"
+                    name="name"
+                    value={fname}
+                    onChange={(e) => setFName(e.target.value)}
+                  />
+                </span>
+                <span>
+                  <div className="text-sm font-bold text-gray-700 tracking-wide">
+                    Last Name
+                  </div>
+                  <input
+                    className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-medi"
+                    placeholder="Snow"
+                    type="text"
+                    name="name"
+                    value={lname}
+                    onChange={(e) => setLName(e.target.value)}
+                  />
+                </span>
+              </div>
+
+              <div className="mt-8">
+                <div className="text-sm font-bold text-gray-700 tracking-wide">
+                  Email Address
+                </div>
+                <input
+                  className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-medi"
+                  placeholder="sgp@gmail.com"
+                  type="email"
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="mt-8">
+                <div className="flex justify-between items-center">
+                  <div className="text-sm font-bold text-gray-700 tracking-wide">
+                    Password
+                  </div>
+                </div>
+                <input
+                  className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                  placeholder="Enter your password"
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <div className="mt-10">
+                <button
+                  className="bg-medi-100 text-gray-100 p-4 w-full rounded-full tracking-wide
+                                font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-medi-200
+                                shadow-lg"
+                  onClick={handleSubmit}
+                >
+                  Register
+                </button>
+              </div>
+            </form>
+            <div className="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
+              Already have an account ?{" "}
+              <Link href="/auth/login">
+                <a className="cursor-pointer text-medi-100 hover:text-medi-200">
+                  Sign in
+                </a>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Login;
+export default Register;
