@@ -33,7 +33,6 @@ async function dbConnect() {
       return mongoose;
     });
   }
-  
   cached.conn = await cached.promise;
   console.log("database connected");
 

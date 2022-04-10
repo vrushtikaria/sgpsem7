@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   const product = req.body;
 
   const { title, desc, category, price, image } = product;
-  const productData = await Product.findOne({ title });
+  const productData = await Product.findOne({ slug: title });
   let active_ids = (await Product.countDocuments({})) + 1;
   if (productData) {
     return res.status(401).json({
@@ -32,6 +32,11 @@ export default async function handler(req, res) {
     return res.status(200).json({
       message: "Product created successfully",
       product: resProductData,
+      success: true,
     });
   }
+  return res.status(400).json({
+    message: "Product not created",
+    success: false,
+  })
 }
